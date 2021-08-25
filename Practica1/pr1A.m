@@ -52,6 +52,15 @@ vecX=input('    Coordenada en X: ');
 vecY=input('    Coordenada en Y: ');
 vecDesc=[vecX;vecY];
 
+distancias=zeros(numClases,1);
+for aux=1:numClases
+    distancias(aux,1)=norm(vecDesc-medias(:,aux));
+end
+
+minimo=min(distancias);
+clase=find(distancias==minimo);
+fprintf('El vector desconocido pertenece a la clase=%d\n',clase);
+
 %GRAFICANDO CLASES
 figure(1)
 plot(vecDesc(1,:),vecDesc(2,:),'ko','MarkerSize',6,'MarkerFaceColor','k','DisplayName','Vector Desc')
