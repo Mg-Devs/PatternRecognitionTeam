@@ -60,9 +60,9 @@ while true
     	case 1 %Distancias
     		clase=clasificador_Distancias(vecDesc, medias,numClases);
     	case 2 %Bayes
-    		clase=clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresentantes,numDimensiones)
+    		clase=clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresentantes,numDimensiones);
     	otherwise
-    		fprintf('Error, elige un clasificador válido.\n')
+    		fprintf('Error, elige un clasificador válido.\n');
     end
     
     fprintf('El vector desconocido pertenece a la Clase: %d.\n',clase);
@@ -95,5 +95,5 @@ while true
     end    
     clf;
 end
-disp('Gracias\n')
+disp('Gracias')
 disp('-----------FIN------------\n')
