@@ -1,4 +1,5 @@
 %Práctica 2
+%Equipo 8
 clc
 clear all
 close all
