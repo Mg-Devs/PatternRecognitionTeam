@@ -4,5 +4,10 @@ function clase = clasificador_Distancias(vecDesc, medias,numClases)
         distancias(aux,1)=norm(vecDesc-medias(:,aux));
     end
     minimo=min(distancias);
-    clase=find(distancias==minimo);
+    
+    if minimo < 50
+        clase=find(distancias==minimo);
+    else
+        clase = -1;
+    end
 end

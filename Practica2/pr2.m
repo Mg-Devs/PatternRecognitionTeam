@@ -66,7 +66,11 @@ while true
     		fprintf('Error, elige un clasificador válido.\n');
     end
     
-    fprintf('El vector desconocido pertenece a la Clase: %d.\n',clase);
+    if clase == -1
+        fprintf('\nEl vector no pertenece a ninguna clase conocida.\n');
+    else
+        fprintf('\nEl vector desconocido pertenece a la Clase: %d.\n',clase);
+    end
 
     %GRAFICANDO CLASES
     figure(1)
