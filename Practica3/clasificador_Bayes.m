@@ -9,8 +9,8 @@ function clase = clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresent
         probAux=b*exp(a);   
         probabilidades(aux,1)=probAux;
     end
-    fprintf('Probabilidades sin normalizar\n');
-    disp(probabilidades);
+    %fprintf('Probabilidades sin normalizar\n');
+    %disp(probabilidades);
     sumaProb=sum(probabilidades(:,1));
     probNormalizadas=zeros(numClases,1);
     for aux=1:numClases
