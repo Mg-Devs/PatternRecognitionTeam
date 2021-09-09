@@ -19,11 +19,7 @@ medias(:,1)=mean(clases(:,:,1),2);
 medias(:,2)=mean(clases(:,:,2),2);
 medias(:,3)=mean(clases(:,:,3),2);
 
-vecDesc=[10;10];
+vecDesc=[3;4];
 
-claseMaha=clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRepresentantes);
-claseDist=clasificador_Distancias(vecDesc, medias,numClases);
-claseBaye=clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresentantes,numDimensiones);
-fprintf('El vector pertence a la clase %d. MAHA\n',claseMaha);
-fprintf('El vector pertence a la clase %d. DIST\n',claseDist);
-fprintf('El vector pertence a la clase %d. BAYE\n',claseBaye);
+clase=clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRepresentantes);
+fprintf('El vector pertence a la clase %d.\n',clase);
