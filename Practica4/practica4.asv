@@ -1,5 +1,6 @@
-%Práctica 3
+%Practica 4 
 %Equipo 8
+
 clc
 clear all
 close all
@@ -52,7 +53,8 @@ while true
     fprintf('\t1) Distancia Euclidiana\n');
     fprintf('\t2) Bayes\n'); 
     fprintf('\t3) Mahalanobis\n');
-    fprintf('\t4) Todos\n');
+    fprintf('\t4) Mahalanobis\n');
+    fprintf('\t5) Todos\n');
     clasificador = input('Elige un número: ');
     
     switch clasificador
@@ -65,7 +67,11 @@ while true
     	case 3 %Mahalanobis
     		fprintf('Clasificador Mahalanobis\n');
     		clase=clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRepresentantes);
-    	case 4 %Todos
+        case 4 %KNN
+            n_vecinos = input('Ingresa el numero de vecinos (Debe ser impar): ');
+    		fprintf('Clasificador Mahalanobis\n');
+    		clase=clasificador_KNN(vecDesc,clases,medias,numClases,numRepresentantes);
+    	case 5 %Todos
     		fprintf('Clasificador Distancia Euclidiana\n');
     		clase=clasificador_Distancias(vecDesc, medias,numClases);
     		if clase == -1
