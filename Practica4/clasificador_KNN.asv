@@ -1,4 +1,4 @@
-function clase = clasificador_KNN(vecDesc,k,clases,numClases,numRepresentantes)
+function clase = clasificador_KNN(vecDes,clases,numClases,numRepresentantes)
 	%Calculando las distancias
 	distancias=zeros(numClases,numRepresentantes);
 	distanciasTotales=zeros(1,numClases*numRepresentantes);
@@ -19,8 +19,8 @@ function clase = clasificador_KNN(vecDesc,k,clases,numClases,numRepresentantes)
 	% end
 	%Ordenar distancias
 	distanciasTotales=sort(distanciasTotales);
+	k=input('Escriba el valor de k:');
 	%Encontrando las Distancias
-    contClases=zeros(numClases,1);
 	for i=1:numClases 
 	    for j=1:k
 	        distanciaBuscada=distanciasTotales(1,j);

@@ -53,7 +53,7 @@ while true
     fprintf('\t1) Distancia Euclidiana\n');
     fprintf('\t2) Bayes\n'); 
     fprintf('\t3) Mahalanobis\n');
-    fprintf('\t4) Mahalanobis\n');
+    fprintf('\t4) K-NN\n');
     fprintf('\t5) Todos\n');
     clasificador = input('Elige un número: ');
     
@@ -70,9 +70,8 @@ while true
         case 4 %KNN
             n_vecinos = input('Ingresa el numero de vecinos (Debe ser impar): ');
     		fprintf('Clasificador KNN\n');
-    		clase=clasificador_KNN(vecDesc,clases,medias,numClases,numRepresentantes);
+    		clase=clasificador_KNN(vecDesc,n_vecinos,clases,numClases,numRepresentantes);
     	case 5 %Todos
-            n_vecinos = input('Ingresa el numero de vecinos para el clasificador KNN (Debe ser impar): ');
     		fprintf('\nClasificador Distancia Euclidiana\n');
     		clase=clasificador_Distancias(vecDesc, medias,numClases);
     		if clase == -1
@@ -95,7 +94,8 @@ while true
 		        fprintf('\n\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
             end
             fprintf('Clasificador KNN\n');
-    		clase=clasificador_KNN(vecDesc,clases,medias,numClases,numRepresentantes);
+            n_vecinos = input('Ingresa el numero de vecinos (Debe ser impar): ');
+    		clase=clasificador_KNN(vecDesc,n_vecinos,clases,numClases,numRepresentantes);
             if clase == -1
 		        fprintf('\n\tEl vector no pertenece a ninguna clase conocida.\n');
 		    else
