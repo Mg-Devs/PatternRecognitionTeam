@@ -5,14 +5,14 @@ function clase = clasificador_KNN(clases,n_clases,n_representantes,n_vecinos,vec
         distancias(:,:,aux)=vecnorm(vector-clases(:,:,aux));
     end
 
-    dmins = mink(distancias,n_vecinos);
+    dmins = sort(distancias);
 
-    mins = dmins(:,:,1);
+    mins = dmins(:,1:n_vecinos,1);
     rclases = ones(1,n_vecinos);
 
     for aux=1:n_vecinos
         for aux2=2:n_clases
-            for aux3=1:n_vecinos
+            for aux3=1:n_representantes
                 if dmins(1,aux3,aux2)< mins(1,aux)
                     mins(1,aux) = dmins(1,aux3,aux2);
                     rclases(1,aux) = aux2;
