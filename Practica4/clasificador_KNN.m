@@ -1,7 +1,31 @@
-function clase = clasificador_Mahalanobis(inputArg1,inputArg2)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+function clase = clasificador_KNN(clases,n_clases,n_representantes,n_vecinos,vector)
+    distancias=zeros(1,n_representantes,n_clases);
+
+    for aux=1:n_clases
+        distancias(:,:,aux)=vecnorm(vector-clases(:,:,aux));
+    end
+
+    dmins = mink(distancias,n_vecinos);
+
+    mins = dmins(:,:,1);
+    rclases = ones(1,n_vecinos);
+
+    for aux=1:n_vecinos
+        for aux2=2:n_clases
+            for aux3=1:n_vecinos
+                if dmins(1,aux3,aux2)< mins(1,aux)
+                    mins(1,aux) = dmins(1,aux3,aux2);
+                    rclases(1,aux) = aux2;
+                    dmins(1,aux3,aux2) = NaN;
+                end
+            end
+        end
+    end
+    
+    display(mins);
+    rclases(mins>50)=-1;
+    display(rclases);
+    
+    clase=mode(rclases,2);
 end
 

@@ -53,7 +53,7 @@ while true
     fprintf('\t1) Distancia Euclidiana\n');
     fprintf('\t2) Bayes\n'); 
     fprintf('\t3) Mahalanobis\n');
-    fprintf('\t4) Mahalanobis\n');
+    fprintf('\t4) KNN\n');
     fprintf('\t5) Todos\n');
     clasificador = input('Elige un número: ');
     
@@ -68,47 +68,49 @@ while true
     		fprintf('Clasificador Mahalanobis\n');
     		clase=clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRepresentantes);
         case 4 %KNN
-            n_vecinos = input('Ingresa el numero de vecinos (Debe ser impar): ');
+            n_vecinos = input('Ingresa el numero de vecinos para el clasificador KNN (Debe ser impar): ');
     		fprintf('Clasificador KNN\n');
-    		clase=clasificador_KNN(vecDesc,clases,medias,numClases,numRepresentantes);
+    		clase=clasificador_KNN(clases,numClases,numRepresentantes,n_vecinos,vecDesc);
     	case 5 %Todos
             n_vecinos = input('Ingresa el numero de vecinos para el clasificador KNN (Debe ser impar): ');
     		fprintf('\nClasificador Distancia Euclidiana\n');
     		clase=clasificador_Distancias(vecDesc, medias,numClases);
     		if clase == -1
-		        fprintf('\n\tEl vector no pertenece a ninguna clase conocida.\n');
+		        fprintf('\tEl vector no pertenece a ninguna clase conocida.\n');
 		    else
-		        fprintf('\n\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
+		        fprintf('\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
 		    end
-		    fprintf('Clasificador Bayes\n');
+		    fprintf('\nClasificador Bayes\n');
     		clase=clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresentantes,size(clases,1));
 			if clase == -1
-		        fprintf('\n\tEl vector no pertenece a ninguna clase conocida.\n');
+		        fprintf('\tEl vector no pertenece a ninguna clase conocida.\n');
 		    else
-		        fprintf('\n\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
+		        fprintf('\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
 		    end
-		    fprintf('Clasificador Mahalanobis\n');
+		    fprintf('\nClasificador Mahalanobis\n');
     		clase=clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRepresentantes);
     		if clase == -1
-		        fprintf('\n\tEl vector no pertenece a ninguna clase conocida.\n');
+		        fprintf('\tEl vector no pertenece a ninguna clase conocida.\n');
 		    else
-		        fprintf('\n\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
+		        fprintf('\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
             end
-            fprintf('Clasificador KNN\n');
-    		clase=clasificador_KNN(vecDesc,clases,medias,numClases,numRepresentantes);
+            fprintf('\nClasificador KNN\n');
+    		clase=clasificador_KNN(clases,numClases,numRepresentantes,n_vecinos,vecDesc);
             if clase == -1
-		        fprintf('\n\tEl vector no pertenece a ninguna clase conocida.\n');
+		        fprintf('\tEl vector no pertenece a ninguna clase conocida.\n');
 		    else
-		        fprintf('\n\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
+		        fprintf('\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
             end
     	otherwise
     		fprintf('Error, elige un clasificador válido.\n');
     end
     
-    if clase == -1 & clasificador~=5
-        fprintf('\nEl vector no pertenece a ninguna clase conocida.\n');
-    else
-        fprintf('\nEl vector desconocido pertenece a la Clase: %d.\n',clase);
+    if clasificador~=5
+        if clase == -1
+            fprintf('\tEl vector no pertenece a ninguna clase conocida.\n');
+        else
+            fprintf('\tEl vector desconocido pertenece a la Clase: %d.\n',clase);
+        end
     end
 
     %GRAFICANDO CLASES
