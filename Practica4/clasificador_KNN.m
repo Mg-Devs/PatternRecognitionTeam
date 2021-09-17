@@ -1,39 +1,31 @@
-function clase = clasificador_KNN(vecDesc,k,clases,numClases,numRepresentantes)
-	%Calculando las distancias
-	distancias=zeros(numClases,numRepresentantes);
-	distanciasTotales=zeros(1,numClases*numRepresentantes);
-	cont=1;
-	for i=1:numClases
-	    for j=1:numRepresentantes
-	        distanciaAux=norm(vecDesc-clases(:,j,i));
-	        distancias(i,j)=distanciaAux; 
-	        distanciasTotales(1,cont)=distanciaAux;
-	        cont=cont+1;
-	    end
-	end
-	%Imprimir en Formato
-	% for i=1:numClases
-	%     for j=1:numRepresentantes
-	%         fprintf('d(x, r%d, C%d)=%f\n',j,i,distancias(i,j));
-	%     end
-	% end
-	%Ordenar distancias
-	distanciasTotales=sort(distanciasTotales);
-	%Encontrando las Distancias
-    contClases=zeros(numClases,1);
-	for i=1:numClases 
-	    for j=1:k
-	        distanciaBuscada=distanciasTotales(1,j);
-	        for l=1:numRepresentantes
-	           if(distancias(i,l)==distanciaBuscada & sum(contClases)<k)
-	              contClases(i,1)=contClases(i,1)+1;
-	              break;
-	           end
-	        end
-	    end
-	end
-	disp(contClases)
-	maximo=max(contClases);
-	clase=find(contClases==maximo);
-end
 
+function clase = clasificador_KNN(clases,n_clases,n_representantes,n_vecinos,vector)
+    distancias=zeros(1,n_representantes,n_clases);
+
+    for aux=1:n_clases
+        distancias(:,:,aux)=vecnorm(vector-clases(:,:,aux));
+    end
+
+    dmins = sort(distancias);
+
+    mins = dmins(:,1:n_vecinos,1);
+    rclases = ones(1,n_vecinos);
+
+    for aux=1:n_vecinos
+        for aux2=2:n_clases
+            for aux3=1:n_representantes
+                if dmins(1,aux3,aux2)< mins(1,aux)
+                    mins(1,aux) = dmins(1,aux3,aux2);
+                    rclases(1,aux) = aux2;
+                    dmins(1,aux3,aux2) = NaN;
+                end
+            end
+        end
+    end
+    
+    display(mins);
+    rclases(mins>50)=-1;
+    display(rclases);
+    
+    clase=mode(rclases,2);
+end
