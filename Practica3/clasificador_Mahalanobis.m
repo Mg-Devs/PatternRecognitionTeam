@@ -8,9 +8,9 @@ function clase = clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRep
         distancias(aux,1)=distanciaAux;
     end
     disp(distancias);
-    minimo=min(distancias);
+    minimo=min(distancias)
     
-    if minimo < 50
+    if minimo < 500
         clase=find(distancias==minimo);
     else
         clase = -1;

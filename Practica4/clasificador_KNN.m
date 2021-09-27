@@ -1,3 +1,4 @@
+
 function clase = clasificador_KNN(clases,n_clases,n_representantes,n_vecinos,vector)
     distancias=zeros(1,n_representantes,n_clases);
 
@@ -28,4 +29,3 @@ function clase = clasificador_KNN(clases,n_clases,n_representantes,n_vecinos,vec
     
     clase=mode(rclases,2);
 end
-
