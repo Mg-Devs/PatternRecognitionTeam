@@ -9,16 +9,21 @@ warning off all
 AND_GATE = [0 0 0;
             0 1 0;
             1 0 0;
-            1 1 1]
+            1 1 1];
+w = zeros(1,3);
+r = 0;
         
-w = [1 1 1];
-r = 1;
+for aux=1:3
+    fprintf('Escribe el peso w%d: ',aux);
+    w(aux)=input('');
+end
+r = input('Ingresa el coeficiende te aprendizaje r: ');
 
 display("Valores Iniciales de W:");
 display(w);
 
 iteration = 1;
-while iteration < 20
+while 1
     wAux = w;
     for aux=1:4
         Xn = [AND_GATE(aux,1) AND_GATE(aux,2) 1];
