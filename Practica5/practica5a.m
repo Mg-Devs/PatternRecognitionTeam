@@ -45,7 +45,7 @@ while 1
     iteration = iteration + 1;
 end
 
-fprintf('fsal = %d x + %d x %d\n',w(1),w(2),w(3));
+fprintf('fsal = %.2f x + %.2f x %.2f\n',w(1),w(2),w(3));
 
 figure(1)
 grid on
