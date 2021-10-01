@@ -36,10 +36,10 @@ disp(dispersiones');
 
 %Crear clases:
 [clases,medias]=crearClasesYMedias(numClases,numRepresentantes,centroides,dispersiones);
-%fprintf('Clases:\n');
-%disp(clases);
-%fprintf('Medias:\n');
-%disp(medias);
+fprintf('Clases:\n');
+disp(clases);
+fprintf('Medias:\n');
+disp(medias);
 
 %---------------CICLO INFINITO---------------------
 while true 
