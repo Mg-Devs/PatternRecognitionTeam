@@ -23,9 +23,9 @@ function clase = clasificador_KNN(clases,n_clases,n_representantes,n_vecinos,vec
         end
     end
     
-    display(mins);
+    %display(mins);
     rclases(mins>50)=-1;
-    display(rclases);
+    %display(rclases);
     
     clase=mode(rclases,2);
 end

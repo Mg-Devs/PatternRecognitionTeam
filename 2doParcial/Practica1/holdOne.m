@@ -1,22 +1,24 @@
-function [mConfusion,promedio] = resustitucion(clasificador,clases,medias,numClases,numRepresentantes,n_vecinos)
+function [mConfusion,promedio] = holdOne(clasificador,clases,medias,numClases,numRepresentantes,n_vecinos)
     mc=zeros(numClases,numClases);
     vecDesc=zeros(2,1);
     
     for i=1:numClases
         for j=1:numRepresentantes
             vecDesc=clases(:,j,i);
+            auxClases = clases;
+            auxClases(:,j,:) = [];
             switch clasificador
                 case 1 %Distancias
                     clase=clasificador_Distancias(vecDesc, medias,numClases);
                     mc(i,clase)=mc(i,clase)+1;
                 case 2 %Bayes
-                    clase=clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresentantes,size(clases,1));
+                    clase=clasificador_Bayes(vecDesc,auxClases,numClases,medias,numRepresentantes-1,size(auxClases,1));
                     mc(i,clase)=mc(i,clase)+1;
                 case 3 %Mahalanobis
-                    clase=clasificador_Mahalanobis(vecDesc,clases,medias,numClases,numRepresentantes);
+                    clase=clasificador_Mahalanobis(vecDesc,auxClases,medias,numClases,numRepresentantes-1);
                     mc(i,clase)=mc(i,clase)+1;
                 case 4 %KNN
-                    clase=clasificador_KNN(clases,numClases,numRepresentantes,n_vecinos,vecDesc);
+                    clase=clasificador_KNN(auxClases,numClases,numRepresentantes-1,n_vecinos,vecDesc);
                     mc(i,clase)=mc(i,clase)+1;
             end
         end
@@ -30,3 +32,4 @@ function [mConfusion,promedio] = resustitucion(clasificador,clases,medias,numCla
     promedio=promedio/numClases;
     %mConfusion=mc;
 end
+

@@ -3,7 +3,7 @@ function clase = clasificador_Distancias(vecDesc, medias,numClases)
     for aux=1:numClases
         distancias(aux,1)=norm(vecDesc-medias(:,aux));
     end
-    disp(distancias);
+    %disp(distancias);
     minimo=min(distancias);
     
     if minimo < 50

@@ -17,8 +17,8 @@ function clase = clasificador_Bayes(vecDesc,clases,numClases,medias,numRepresent
        probNormalizadas(aux,1)=(probabilidades(aux,1)/sumaProb)*100;
     end
 
-    disp(probNormalizadas)
-    fprintf('Suma de las probabilidades normalizadas: %d. \n',sum(probNormalizadas))
+    %disp(probNormalizadas)
+    %fprintf('Suma de las probabilidades normalizadas: %d. \n',sum(probNormalizadas))
 
     umbral = max(probabilidades);
     maximo=max(probNormalizadas);
