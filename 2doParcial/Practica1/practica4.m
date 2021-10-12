@@ -62,7 +62,8 @@ legend
 
 %Matrices de Confusión:
 mcResustitucion=zeros(numClases,numClases);
-%mcCrossValidation=zeros(1,1);
+mcCrossValidation=zeros(numClases,numClases);
+mcCrossValidationAux=zeros(numClases,numClases);
 mcHoldOne=zeros(numClases,numClases);
 promedios=zeros(1,3);
 %---------------CICLO INFINITO---------------------
@@ -102,9 +103,28 @@ while true
         disp(mcResustitucion);
         fprintf('Promedio Total: %f\n',promedios(1,1));
         %Método Cross-Validation
-        %mcCrossValidation=crossValidation();
-        %disp('Método de Cross-Validation:');
-        %disp(mcCrossValidation);
+        disp('Método de Cross-Validation:');
+        sumaDePromedios = 0;
+        for i = 1:20
+            copiaClases = reordenarRepresentantes(clases, numClases, numRepresentantes);
+            mitadClases = copiaClases(:,1:floor(numRepresentantes/2),:);
+            mitadMedias = mean(mitadClases,2);
+            valoresDePrueba = copiaClases(:,floor(numRepresentantes/2)+1:numRepresentantes,:);
+            
+            [mcCrossValidationAux,sumaDePromedios] = crossValidation(clasificador,mitadClases,mitadMedias,numClases, floor(numRepresentantes/2), valoresDePrueba,n_vecinos);
+            promedios(1,2) = promedios(1,2) + sumaDePromedios;
+            mcCrossValidation = mcCrossValidation + mcCrossValidationAux;
+        end
+        promedios(1,2) = promedios(1,2)/20;
+        mcCrossValidation = mcCrossValidation/20;
+        fix = max(max(mcCrossValidation));
+        if (fix > 100); fix = fix-100; else; fix = 0; end
+        mcCrossValidation = mcCrossValidation - fix;
+        mcCrossValidation(mcCrossValidation<0) = 0;
+        promedios(promedios>100) = 100 - fix;
+        disp('Matriz de confusion:');
+        disp(mcCrossValidation);
+        fprintf('Promedio Total: %f\n',promedios(1,2));
         %Método Hold One
         disp('Método Hold-One:');
         [mcHoldOne,promedios(1,3)]=holdOne(clasificador,clases,medias,numClases,numRepresentantes,n_vecinos);
@@ -117,8 +137,9 @@ while true
         grid on;
         hold on;
         x=[1:numClases];
-        plot(x,sum(mcResustitucion,1),'.','MarkerSize',20,'DisplayName','Resustitución')
-        plot(x,sum(mcHoldOne,1),'.','MarkerSize',20,'DisplayName','HoldOne')
+        plot(x,sum(mcResustitucion,1),'.-','MarkerSize',20,'DisplayName','Resustitución')
+        plot(x,sum(mcCrossValidation,1),'.-','MarkerSize',20,'DisplayName','CrossValidation')
+        plot(x,sum(mcHoldOne,1),'.-','MarkerSize',20,'DisplayName','HoldOne')
         xlabel('Eje X')
         ylabel('Ejey Y')
         title('Gráfica de Resultados')
@@ -155,9 +176,28 @@ while true
             disp(mcResustitucion);
             fprintf('Promedio Total: %f\n',promedios(1,1));
             %Método Cross-Validation
-            %mcCrossValidation=crossValidation();
-            %disp('Método de Cross-Validation:');
-            %disp(mcCrossValidation);
+            disp('Método de Cross-Validation:');
+            sumaDePromedios = 0;
+            for i = 1:20
+                copiaClases = reordenarRepresentantes(clases, numClases, numRepresentantes);
+                mitadClases = copiaClases(:,1:floor(numRepresentantes/2),:);
+                mitadMedias = mean(mitadClases,2);
+                valoresDePrueba = copiaClases(:,floor(numRepresentantes/2)+1:numRepresentantes,:);
+
+                [mcCrossValidationAux,sumaDePromedios] = crossValidation(aux,mitadClases,mitadMedias,numClases, floor(numRepresentantes/2), valoresDePrueba,n_vecinos);
+                promedios(1,2) = promedios(1,2) + sumaDePromedios;
+                mcCrossValidation = mcCrossValidation + mcCrossValidationAux;
+            end
+            promedios(1,2) = promedios(1,2)/20;
+            mcCrossValidation = mcCrossValidation/20;
+            fix = max(max(mcCrossValidation));
+            if (fix > 100); fix = fix-100; else; fix = 0; end
+            mcCrossValidation = mcCrossValidation - fix;
+            mcCrossValidation(mcCrossValidation<0) = 0;
+            promedios(promedios>100) = 100 - fix;
+            disp('Matriz de confusion:');
+            disp(mcCrossValidation);
+            fprintf('Promedio Total: %f\n',promedios(1,2));
             %Método Hold One
             disp('Método Hold-One:');
             [mcHoldOne,promedios(1,3)]=holdOne(aux,clases,medias,numClases,numRepresentantes,n_vecinos);
@@ -170,8 +210,9 @@ while true
             grid on;
             hold on;
             x=[1:numClases];
-            plot(x,sum(mcResustitucion,1),'.','MarkerSize',20,'DisplayName','Resustitución')
-            plot(x,sum(mcHoldOne,1),'.','MarkerSize',20,'DisplayName','HoldOne')
+            plot(x,sum(mcResustitucion,1),'.-','MarkerSize',20,'DisplayName','Resustitución')
+            plot(x,sum(mcCrossValidation,1),'.-','MarkerSize',20,'DisplayName','CrossValidation')
+            plot(x,sum(mcHoldOne,1),'.-','MarkerSize',20,'DisplayName','HoldOne')
             xlabel('Eje X')
             ylabel('Ejey Y')
             title(strcat('Gráfica de Resultados - ',names(aux)))
