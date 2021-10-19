@@ -8,7 +8,7 @@ function clase = clasificador_Distancias(vecDesc, medias,numClases)
     disp(distancias);
     minimo=min(distancias);
     
-    if minimo > 40
+    if minimo < 500
         clase=find(distancias==minimo);
     else
         clase = -1;

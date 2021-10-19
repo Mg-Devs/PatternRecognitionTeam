@@ -5,9 +5,9 @@ function elemento = definirClase(clase)
         case 2
             elemento = 'Roca';
         case 3
-            elemento = 'Montaña';
-        case 4
             elemento = 'Arena';
+        case 4
+            elemento = 'Montaña';
         otherwise
             elemento = 'Clase desconocida';
     end

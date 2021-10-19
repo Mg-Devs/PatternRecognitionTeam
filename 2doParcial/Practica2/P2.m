@@ -130,4 +130,5 @@ while true
         break;
     end    
     clf;
+    imshow(img,dato)
 end    
