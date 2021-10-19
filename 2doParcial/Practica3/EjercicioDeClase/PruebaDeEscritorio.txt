@@ -1,0 +1,66 @@
+umbral=1;
+%        x 1  2 3 4 5 6 7 8 9 10            Reglas:
+muestras=[0.5 3 2 1 5 4 6 5 6 7;				dist<umbral  => agregar a grupo
+          0.5 8 2 1 3 8 3 4 4 5];				dist>=umbral => crear nuevo grupo
+##################################################
+###  g1={x1,x4}	 g2={x2}  g3={x3}  g4={x5}     ###
+###  g5={x6} g6={x7} g7={x8} g8={x9} g9={x10}  ###
+###  medias=[0.75 3 2 5 4 6 5 6 7;              ###
+###          0.75 8 2 3 8 3 4 4 5]              ###
+##################################################
+------------para x2---#Grupos=1-----------
+d(x2,g1)=7.90 >= umbral se crea g2
+
+------------para x3---#Grupos=2-----------
+d(x3,g1)=2.12 
+d(x3,g2)=6.08  >= umbral se crea g3
+
+------------para x4---#Grupos=3-----------
+d(x4,g1)=0.70  <umbral se agrega a g1 y se calcula su media
+d(x4,g2)=7.28
+d(x4,g3)=1.41
+
+------------para x5---#Grupos=3-----------
+d(x5,g1)=4.80
+d(x5,g2)=5.38   >= umbral se crea g4
+d(x5,g3)=3.16
+
+------------para x6---#Grupos=4-----------
+d(x6,g1)=7.94
+d(x6,g2)=1.00
+d(x6,g3)=6.32   >= umbral se crea g5
+d(x6,g4)=5.09
+
+------------para x7---#Grupos=5-----------
+d(x7,g1)=5.71
+d(x7,g2)=5.83
+d(x7,g3)=4.12   >= umbral se crea g6
+d(x7,g4)=1
+d(x7,g5)=5.38
+
+------------para x8---#Grupos=6-----------
+d(x8,g1)=5.35
+d(x8,g2)=4.47
+d(x8,g3)=3.60
+d(x8,g4)=1     >= umbral se crea g7
+d(x8,g5)=4.12
+d(x8,g6)=1.41
+
+------------para x9---#Grupos=7-----------
+d(x9,g1)=6.17
+d(x9,g2)=5
+d(x9,g3)=4.47
+d(x9,g4)=1.41     >= umbral se crea g8
+d(x9,g5)=4.47
+d(x9,g6)=1
+d(x9,g7)=1
+
+------------para x10---#Grupos=8-----------
+d(x10,g1)=7.55
+d(x10,g2)=5
+d(x10,g3)=5.83
+d(x10,g4)=2.82
+d(x10,g5)=4.24   >= umbral se crea g9
+d(x10,g6)=2.23
+d(x10,g7)=2.23
+d(x10,g8)=1.41
