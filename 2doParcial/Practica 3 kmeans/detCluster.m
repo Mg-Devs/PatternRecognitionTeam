@@ -6,4 +6,5 @@ function clase = detCluster(vecDesc, centroides, numClases)
     minimo=min(distancias);
     
     clase=find(distancias==minimo);
+    clase=clase(1);
 end

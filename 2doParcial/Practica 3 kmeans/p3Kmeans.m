@@ -26,8 +26,19 @@ k=input("Ingrese el número de clusters (k): ");
 %----Creando muestras en la Imagen----
 muestras = zeros(2,numMuestras);
 %muestras = crearMuestras(numMuestras, n, m)
-muestras(1,:)=randi([0,500],1,numMuestras);
-muestras(2,:)=randi([0,500],1,numMuestras);
+
+% muestras(1,:)=randi([-100,500],1,numMuestras);
+% muestras(2,:)=randi([-100,500],1,numMuestras);
+
+muestras(1,1:50)=randi([-100,-50],1,50);
+muestras(2,1:50)=randi([-50,0],1,50);
+muestras(1,51:100)=randi([0,50],1,50);
+muestras(2,51:100)=randi([-25,25],1,50);
+muestras(1,101:150)=randi([-100,-50],1,50);
+muestras(2,101:150)=randi([50,150],1,50);
+muestras(1,151:200)=randi([100,150],1,50);
+muestras(2,151:200)=randi([150,250],1,50);
+
 %disp('Muestras')
 %disp(muestras);
 
