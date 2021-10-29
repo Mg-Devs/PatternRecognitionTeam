@@ -6,7 +6,9 @@ clear all
 close all
 warning off all
 
-<<<<<<< HEAD
+numMuestras=200;
+k=input("Ingrese el número de clusters (k): ");
+
 %----Abrir Imagen----
 img=imread('Banderas/018-bandera.jpg');
 figure(1)
@@ -14,15 +16,12 @@ figure(1)
 dato=imref2d(size(img));
 imshow(img,dato)
 
+
+
 numMuestras=200;
 k=input("Ingrese el número de clusters (k): ");
 
 
-=======
-numMuestras=200;
-k=input("Ingrese el número de clusters (k): ");
-
->>>>>>> ad2854661d8bd8da9968992cb05c16b4d22c4f38
 %----Creando muestras en la Imagen----
 muestras = zeros(2,numMuestras);
 %muestras = crearMuestras(numMuestras, n, m)
