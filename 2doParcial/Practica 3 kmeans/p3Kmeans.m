@@ -9,22 +9,16 @@ warning off all
 numMuestras=200;
 k=input("Ingrese el número de clusters (k): ");
 
-%----Abrir Imagen----
-img=imread('Banderas/018-bandera.jpg');
-figure(1)
-[m,n,dim]=size(img);
-dato=imref2d(size(img));
-imshow(img,dato)
-
 %----Creando muestras en la Imagen----
 muestras = zeros(2,numMuestras);
 %muestras = crearMuestras(numMuestras, n, m)
-muestras(1,:)=randi([0,n],1,numMuestras);
-muestras(2,:)=randi([0,m],1,numMuestras);
+muestras(1,:)=randi([0,500],1,numMuestras);
+muestras(2,:)=randi([0,500],1,numMuestras);
 %disp('Muestras')
 %disp(muestras);
 
 %----Graficando Muestras----
+figure(1)
 grid on
 hold on
 plot(muestras(1,:),muestras(2,:),'.g','MarkerSize',15);
@@ -35,7 +29,6 @@ disp('Centroides')
 disp(centroides);
 
 figure(2)
-imshow(img,dato)
 grid on
 hold on
 for aux=1:k
