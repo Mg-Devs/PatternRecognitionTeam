@@ -29,5 +29,9 @@ function [clusters, medias] = kmeans(kMedias, numMuestras, muestras)
     color=rand(1,3);
     cstr=strcat('Iteracion',{' '},string(numIteraciones));
     plot3(centroides(1,:), centroides(2,:), centroides(3,:), '+','MarkerSize',10,'color',color, 'DisplayName', cstr);
+    for i = 1:kMedias
+        c = find(clusters(6,:) == i);
+        medias(:,i) = mean(clusters(1:2, c),2);
+    end
     legend
 end

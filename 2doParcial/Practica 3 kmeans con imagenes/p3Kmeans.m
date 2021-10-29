@@ -6,15 +6,16 @@ clear all
 close all
 warning off all
 
-numMuestras=200;
-k=input("Ingrese el número de clusters (k): ");
+numMuestras=400;
 
 %----Abrir Imagen----
-img=imread('Banderas/018-bandera.jpg');
+img=imread('Paisajes/ImagenPrueba4.jpg');
 figure(1)
 [m,n,dim]=size(img);
 dato=imref2d(size(img));
 imshow(img,dato)
+
+k=input("Ingrese el número de clusters (k): ");
 
 %----Creando muestras en la Imagen----
 muestras = zeros(2,numMuestras);
@@ -54,10 +55,12 @@ hold on
 for aux=1:k
     color=rand(1,3);
     cstr=strcat('Clase',{' '},string(aux));
+    cstr2=strcat('Centroide',{' '},string(aux));
     c = find(clusters(6,:) == aux);
     x = clusters(1,c);
     y = clusters(2,c);
     plot(x,y,'.','MarkerSize',15,'DisplayName',cstr,'color',color)
+    plot(centroides(1,aux), centroides(2,aux),'+','MarkerSize',20,'DisplayName',cstr2,'color',color)
     clear x
     clear y
 end
