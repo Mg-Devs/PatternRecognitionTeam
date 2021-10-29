@@ -19,7 +19,7 @@ function [clusters, medias] = kmeans(kMedias, numMuestras, muestras)
             clusters(6,i) = detCluster(clusters(3:5,i), centroides, kMedias);
         end
         centroides = calcCentroides(clusters, kMedias, numMuestras);
-        if(centroidesAux == centroides) | (numIteraciones == maxIteraciones)
+        if(isequal(centroidesAux,centroides) || isequal(numIteraciones,maxIteraciones))
             break;
         end
         numIteraciones = numIteraciones + 1;
