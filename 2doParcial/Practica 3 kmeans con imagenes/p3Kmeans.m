@@ -6,10 +6,10 @@ clear all
 close all
 warning off all
 
-numMuestras=400;
+numMuestras=600;
 
 %----Abrir Imagen----
-img=imread('Paisajes/ImagenPrueba4.jpg');
+img=imread('Banderas/004-bandera.jpg');
 figure(1)
 [m,n,dim]=size(img);
 dato=imref2d(size(img));
@@ -42,9 +42,30 @@ for i=1:numMuestras
 end
 
 %----K_means----
+varMinima = 0;
+disntacias = zeros(1, k);
 for veces = 1:10
     [clusters, centroides]=kmeans(k,numMuestras,muestrasRGB);
+    for aux = 1:k
+        c = find(clusters(6,:) == aux);
+        distancias(1,aux) = norm(clusters(1:2,c) - centroides(:,aux)); 
+    end
+    varianza = var(distancias); 
+    if varMinima == 0
+        varMinima = varianza;
+        clustersAux = clusters;
+        centroidesAux = centroides;
+        cualFueMejor = veces;
+    end
+    if varianza < varMinima
+        varMinima = varianza;
+        clustersAux = clusters;
+        centroidesAux = centroides;
+        cualFueMejor = veces;
+    end
 end
+clusters = clustersAux;
+centroides = centroidesAux;
 disp('Centroides')
 disp(centroides);
 
