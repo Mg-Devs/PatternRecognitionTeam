@@ -9,7 +9,7 @@ warning off all
 numMuestras=600;
 
 %----Abrir Imagen----
-img=imread('Banderas/004-bandera.jpg');
+img=imread('Banderas/003-bandera.jpg');
 figure(1)
 [m,n,dim]=size(img);
 dato=imref2d(size(img));
