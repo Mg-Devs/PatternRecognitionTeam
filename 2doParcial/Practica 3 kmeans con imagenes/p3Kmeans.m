@@ -9,7 +9,8 @@ warning off all
 numMuestras=600;
 
 %----Abrir Imagen----
-img=imread('Banderas/003-bandera.jpg');
+img=imread('Banderas/005-bandera.jpg');
+% img=imread('Paisajes/ImagenPrueba9.jpg');
 figure(1)
 [m,n,dim]=size(img);
 dato=imref2d(size(img));
@@ -43,7 +44,7 @@ end
 
 %----K_means----
 varMinima = 0;
-disntacias = zeros(1, k);
+distancias = zeros(1, k);
 for veces = 1:10
     [clusters, centroides]=kmeans(k,numMuestras,muestrasRGB);
     for aux = 1:k
@@ -68,6 +69,12 @@ clusters = clustersAux;
 centroides = centroidesAux;
 disp('Centroides')
 disp(centroides);
+
+for aux = 1:k
+    c = find(clusters(6,:) == aux);
+    elementos = size(c);
+    fprintf("La clase %d tiene %d elementos\n", aux, elementos(2));
+end
 
 figure(2)
 imshow(img,dato)
