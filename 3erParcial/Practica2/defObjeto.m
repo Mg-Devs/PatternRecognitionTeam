@@ -15,7 +15,9 @@ function tipoObj = defObjeto(centroide)
     elseif (centroide(1) > 80 && centroide(1) < 100) && (centroide(2) > 30 && centroide(2) < 40)
         tipoObj = 4;
     
-    else
+    elseif (centroide(1) > 128 && centroide(1) < 136) && (centroide(2) > 40 && centroide(2) < 70)
         tipoObj = 5;
+    else
+        tipoObj = 6;
     end
 end
