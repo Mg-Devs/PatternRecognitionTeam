@@ -18,13 +18,14 @@ for aux=inicio:fin
     areaImagen = rows * columns;
     %fprintf('Mostrando Imagen %d: \n',aux);
     %imshow(imgAux);
-    objetos=regionprops(imgAux,'Perimeter','Area');
+    objetos=regionprops(imgAux,'Perimeter','Area','MajorAxisLength');
     for k=1:length(objetos)
         perimetro=objetos(k).Perimeter;
         area=objetos(k).Area;
+        majorAxisLength = objetos(k).MajorAxisLength;
         if area > 100
             areaProporcional=(area/areaImagen)*10000;
-            descriptores(:,contador) = [areaProporcional perimetro];
+            descriptores(:,contador) = [areaProporcional majorAxisLength];
             contador = contador+1;
             cantidad = cantidad+1;
         end
@@ -86,18 +87,19 @@ while(1)
     figure(2)
     imshow(imgAux);
     contadores=zeros(1,5); %Tornillos, Rondanas, Armellas, Llaves Allen, No se cómo se llama
-    objetos=regionprops(imgAux,'Perimeter','Area','Centroid','BoundingBox');
+    objetos=regionprops(imgAux,'Perimeter','Area','Centroid','BoundingBox', 'MajorAxisLength');
     for k=1:length(objetos)
         vectDesconocido = zeros(2);
         caja=objetos(k).BoundingBox;
         perimetro=objetos(k).Perimeter;
         area=objetos(k).Area;
+        majorAxisLength = objetos(k).MajorAxisLength;
         if (area>50)
             figure(2);
             areaProporcional=(area/areaImagen)*10000;
-            vectDesconocido = [areaProporcional perimetro];
+            vectDesconocido = [areaProporcional majorAxisLength];
             clase = clasificador_Distancias(vectDesconocido, centroides, km);
-            %clase = clasificador_Mahalanobis(vectDesconocido, descriptores, centroides, km, contador-1);
+%             clase = clasificador_Mahalanobis(vectDesconocido, clusters, centroides, km, contador-1);
 %             clase = clasificador_Bayes(vectDesconocido,descriptores,km,centroides,contador-1,2);
             tipoObj = defObjeto(centroides(:,clase));
             if isequal(tipoObj, 1) %Tornillos
