@@ -89,7 +89,7 @@ while(1)
     %fprintf('Mostrando Imagen %d: \n',aux);
     figure(2)
     imshow(imgAux);
-    contadores=zeros(1,5); %Tornillos, Rondanas, Armellas, Llaves Allen, No se cómo se llama
+    contadores=zeros(1,6); %Tornillos, Rondanas, Armellas, Llaves Allen, No se cómo se llama
     objetos=regionprops(imgAux,'Perimeter','Area','Centroid','BoundingBox', 'MajorAxisLength');
     for k=1:length(objetos)
         vectDesconocido = zeros(2);
@@ -128,20 +128,21 @@ while(1)
             else
                 rectangle('Position',[caja(1),caja(2),caja(3),caja(4)],'EdgeColor','b','LineWidth',2);
                 text(objetos(k).Centroid(1),objetos(k).Centroid(2),'Otro','Color','b');
-                contadores(5)=contadores(5)+1;
+                contadores(6)=contadores(6)+1;
             end 
             hold on
             figure(1);
-            plot(vectDesconocido(1), vectDesconocido(2), '.','MarkerSize',15,'DisplayName','VectDesconocido','color','k')
+            plot(vectDesconocido(1), vectDesconocido(2), 'x','MarkerSize',15,'DisplayName','VectDesconocido','color','k')
         end
     end
     fprintf('Imagen: %d\n',aux);
     fprintf('El número total de figuras es: %d\n',sum(contadores));
     fprintf('\tTornillos: %d\n',contadores(1));
-    fprintf('\tRondanas: %d\n',contadores(2));
+    fprintf('\tRondanas: %d\n',contadores(4));
     fprintf('\tArmellas: %d\n',contadores(3));
-    fprintf('\tLlaves Allen: %d\n',contadores(4));
-    fprintf('\tOtro: %d\n',contadores(5));
+    fprintf('\tLlaves Allen: %d\n',contadores(2));
+    fprintf('\tColas De Pato: %d\n',contadores(5));
+    fprintf('\tOtros: %d\n',contadores(6));
     clear contadores;
     fprintf("Desea identificar otra imagen?\n1) Si\n2) No\n");
     opcion = input("");
