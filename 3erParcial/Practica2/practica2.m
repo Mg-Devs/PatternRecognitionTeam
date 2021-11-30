@@ -31,9 +31,6 @@ for aux=inicio:fin
         end
     end
 end
-figure(1);
-grid on;
-hold on;
 km = 5;
 minSSE = realmax;
 for i = 1:20
@@ -61,25 +58,31 @@ clusters = clustersAux;
 centroides = centroidesAux;
 disp('Centroides')
 disp(centroides);
-
-for aux=1:km
-    color=rand(1,3);
-    cstr=strcat('Clase',{' '},string(aux));
-    cstr2=strcat('Centroide',{' '},string(aux));
-    c = find(clusters(3,:) == aux);
-    x = clusters(1,c);
-    y = clusters(2,c);
-    plot(x,y, '.','MarkerSize',15,'DisplayName',cstr,'color',color)
-    plot(centroides(1,aux), centroides(2,aux),'+','MarkerSize',20,'DisplayName',cstr2,'color',color)
-    clear x
-    clear y
-end
-xlabel('Atributo 1')
-ylabel('Atributo 2')
-legend
+centroides(:,6) = [0, 0];
 while(1)
+    figure(1);
+    clf;
+    grid on;
+    hold on;
+    for aux=1:km
+        color=rand(1,3);
+        cstr=strcat('Clase',{' '},string(aux));
+        cstr2=strcat('Centroide',{' '},string(aux));
+        c = find(clusters(3,:) == aux);
+        x = clusters(1,c);
+        y = clusters(2,c);
+        plot(x,y, '.','MarkerSize',15,'DisplayName',cstr,'color',color)
+        plot(centroides(1,aux), centroides(2,aux),'+','MarkerSize',20,'DisplayName',cstr2,'color',color)
+        clear x
+        clear y
+    end
+    xlabel('Atributo 1')
+    ylabel('Atributo 2')
+    legend
     fprintf("Ingrese el numero de la imagen que desea: (1/114)\n")
     aux = input("");
+    figure(2)
+    clf;
     imgAux=leerImagen(aux);
     [rows, columns] = size(imgAux);
     areaImagen = rows * columns;
@@ -118,9 +121,13 @@ while(1)
                 rectangle('Position',[caja(1),caja(2),caja(3),caja(4)],'EdgeColor','m','LineWidth',2);
                 text(objetos(k).Centroid(1),objetos(k).Centroid(2),'Rondana','Color','m');
                 contadores(4)=contadores(4)+1;
-            else 
+            elseif isequal(tipoObj, 5) %ColadePato
                 rectangle('Position',[caja(1),caja(2),caja(3),caja(4)],'EdgeColor','y','LineWidth',2);
-                text(objetos(k).Centroid(1),objetos(k).Centroid(2),'Otro','Color','y');
+                text(objetos(k).Centroid(1),objetos(k).Centroid(2),'Cola de Pato','Color','y');
+                contadores(5)=contadores(5)+1;
+            else
+                rectangle('Position',[caja(1),caja(2),caja(3),caja(4)],'EdgeColor','b','LineWidth',2);
+                text(objetos(k).Centroid(1),objetos(k).Centroid(2),'Otro','Color','b');
                 contadores(5)=contadores(5)+1;
             end 
             hold on
