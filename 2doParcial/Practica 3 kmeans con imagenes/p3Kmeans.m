@@ -6,11 +6,11 @@ clear all
 close all
 warning off all
 
-numMuestras=600;
+numMuestras=1000;
 
 %----Abrir Imagen----
-img=imread('Banderas/005-bandera.jpg');
-% img=imread('Paisajes/ImagenPrueba9.jpg');
+%img=imread('Banderas/005-bandera.jpg');
+img=imread('Paisajes/Montaña-010.jpeg');
 figure(1)
 [m,n,dim]=size(img);
 dato=imref2d(size(img));
