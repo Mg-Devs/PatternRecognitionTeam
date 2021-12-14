@@ -1,11 +1,15 @@
-function [imgBW]=leerImagen(contador)
+function [img]=leerImagen(contador)
 	%IMAG(contador).BMP
-    direccion=strcat('Praderas/img-',string(contador),'.jpg');
+    if contador < 10
+        direccion=strcat('paisajes/IMG0',string(contador),'.jpg');
+    else 
+        direccion=strcat('paisajes/IMG',string(contador),'.jpg');
+    end
     fprintf('Direccion=%s',direccion)
 	%figure(contador)
 	img=imread(direccion);
+    img = imresize(img,0.5);
 	%imshow(img)
 	%figure(contador+1)
-	imgBW=im2bw(img);
 	%imshow(imgBW)
 end

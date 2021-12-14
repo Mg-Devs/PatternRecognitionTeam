@@ -10,11 +10,13 @@ numMuestras=500;
 
 %----Abrir Imagen----
 %img=imread('Banderas/005-bandera.jpg');
-img=imread('00000006.jpg');
+img = imread('00000006.jpg');
+img = imresize(img,0.5);
 figure(1)
 [m,n,dim]=size(img);
 dato=imref2d(size(img));
 imshow(img,dato)
+img=rgb2lab(img);
 
 k=4;
 
@@ -76,8 +78,27 @@ for aux = 1:k
     fprintf("La clase %d tiene %d elementos\n", aux, elementos(2));
 end
 
-figure(2)
-imshow(img,dato)
+figure(2);
+clf;
+grid on;
+hold on;
+for aux=1:k
+    color=rand(1,3);
+    cstr=strcat('Clase',{' '},string(aux));
+    cstr2=strcat('Centroide',{' '},string(aux));
+    c = find(clusters(6,:) == aux);
+    x = clusters(1,c);
+    y = clusters(2,c);
+    plot(x,y, '.','MarkerSize',15,'DisplayName',cstr,'color',color)
+    plot(centroides(1,aux), centroides(2,aux),'+','MarkerSize',20,'DisplayName',cstr2,'color',color)
+end
+xlabel('Atributo 1')
+ylabel('Atributo 2')
+legend
+
+figure(3)
+imgf=lab2rgb(img);
+imshow(imgf,dato);
 grid off
 hold on
 for aux=1:k

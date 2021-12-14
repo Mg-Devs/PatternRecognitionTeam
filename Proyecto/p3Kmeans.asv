@@ -9,16 +9,15 @@ warning off all
 numMuestras=600;
 
 %----Abrir Imagen----
-A = imread('paisajes/IMG08.jpg');
+A = imread('00000019.jpg');
 A = imresize(A,0.5);
 figure(1)
 imshow(A)
 
 BW = im2bw(A);
 imshow(BW)
-gcm = graycomatrix(BW);
-stats = graycoprops(gcm,'all')
-mean2(stats)
+stats = graycomatrix(BW,'Offset',[2 0;0 2]);
+graycoprops(BW,{'Contrast','Energy'})
 
 Alab = rgb2lab(A);
 figure(2)

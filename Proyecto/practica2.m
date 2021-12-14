@@ -7,31 +7,25 @@ close all
 warning off all
 %1 5  9 10 11 %45
 
-inicio=61;
-fin=91;
+inicio=1;
+fin=92;
 descriptores=zeros(2);
 contador=1;
 for aux=inicio:fin
     cantidad = 0;
     imgAux=leerImagen(aux);
-    [rows, columns] = size(imgAux);
-    areaImagen = rows * columns;
+    %[rows, columns] = size(imgAux);
+    %areaImagen = rows * columns;
     %fprintf('Mostrando Imagen %d: \n',aux);
     %imshow(imgAux);
-    objetos=regionprops(imgAux,'Perimeter','Area','MajorAxisLength');
-    for k=1:length(objetos)
-        perimetro=objetos(k).Perimeter;
-        area=objetos(k).Area;
-        majorAxisLength = objetos(k).MajorAxisLength;
-        if area > 100
-            areaProporcional=(area/areaImagen)*10000;
-            descriptores(:,contador) = [areaProporcional majorAxisLength];
-            contador = contador+1;
-            cantidad = cantidad+1;
-        end
-    end
+    BW=im2bw(imgAux);
+    gcm = graycomatrix(BW);
+    texture=graycoprops(gcm,{'Correlation','Homogeneity'});
+    descriptores(:,contador) = [texture.Correlation texture.Homogeneity];
+    contador = contador+1;
 end
-km = 5;
+
+km = 3;
 minSSE = realmax;
 for i = 1:20
     [clusters, centroides]=kmeans(km,contador-1,descriptores);
