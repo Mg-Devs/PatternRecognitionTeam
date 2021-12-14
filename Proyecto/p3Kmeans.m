@@ -8,6 +8,8 @@ warning off all
 
 numMuestras=600;
 
+offset=[1 1; 3 3; 5 5; -5 -5];
+
 %----Abrir Imagen----
 A = imread('paisajes/IMG08.jpg');
 A = imresize(A,0.5);
@@ -16,9 +18,30 @@ imshow(A)
 
 BW = im2bw(A);
 imshow(BW)
-gcm = graycomatrix(BW);
+gcm = graycomatrix(BW,'Offset',offset);
 stats = graycoprops(gcm,'all')
-mean2(stats)
+
+A2 = imread('paisajes/IMG35.jpg');
+A2 = imresize(A2,0.5);
+figure(1)
+imshow(A2)
+
+BW2 = im2bw(A2);
+imshow(BW2)
+gcm2 = graycomatrix(BW2,'Offset',offset);
+stats2 = graycoprops(gcm2,'all')
+mean(stats2.Contrast)
+
+A3 = imread('paisajes/IMG65.jpg');
+A3 = imresize(A3,0.5);
+figure(1)
+imshow(A3)
+
+BW3 = im2bw(A3);
+imshow(BW3)
+gcm3 = graycomatrix(BW3,'Offset',offset);
+stats3 = graycoprops(gcm3,'all')
+mean(stats3.Contrast)
 
 Alab = rgb2lab(A);
 figure(2)
